@@ -1,35 +1,73 @@
-# Crafted-By_SPA
+# Guide de création/installation du proget
 
-This template should help get you started developing with Vue 3 in Vite.
+## Démarrage
 
-## Recommended IDE Setup
+(npm 18+ needed)
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+    nvm use 20
 
-## Customize configuration
+### 1 - Ouvrir un terminal dans le dossier voulu et installation de Vuejs
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+    npm create vue@latest
 
-## Project Setup
+    - Sans utilisation de TypeScript
+    - Sans support du JSX
+    - Avec Vue Router
+    - Avec Pinia
+    - Sans Vitest
+    - Sans tests end-to-end
+    - Avec ESLint
+    - Avec Prettier
 
-```sh
-npm install
-```
+### 2 - installation de Tailwind
 
-### Compile and Hot-Reload for Development
+    npm install -D tailwindcss
+    npx tailwindcss init
 
-```sh
-npm run dev
-```
+puis dans "tailwind.config.js"
 
-### Compile and Minify for Production
+    export default {
+        content: ["./src/**/*.{html,js,vue}"],
 
-```sh
-npm run build
-```
+ajouter dans le fichier css de base
+    
+    @tailwind base;
+    @tailwind components;
+    @tailwind utilities;
 
-### Lint with [ESLint](https://eslint.org/)
+### 3 - installation de Daisyui
 
-```sh
-npm run lint
-```
+    npm i -D daisyui@latest
+
+import dans "tailwind.config.js"
+
+    import daisyui from 'daisyui'
+
+    export default {
+          plugins: [daisyui],
+
+### 4 - lancer le serveur
+
+    npm run dev
+
+### 5 - Axios (https://github.com/axios/axios)
+
+    $ npm install axios
+
+puis import de la librairie dans le Javascript pour l'utiliser
+
+    import axios, {isCancel, AxiosError} from 'axios';
+
+    app.use(axios, {isCancel, AxiosError})
+
+### 6 - Librairie d'icones
+
+Comme suggéré dans les consigne, installation de :
+
+unplugin-icons (https://github.com/unplugin/unplugin-icons) avec l'auto-import
+
+    npm i -D unplugin-icons 
+
+et de la librairie Phosphor (https://phosphoricons.com/).
+    
+    npm i -D @iconify-json/ph

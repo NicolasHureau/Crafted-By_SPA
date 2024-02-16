@@ -1,62 +1,50 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
+import Add from './components/Add.vue'
+import FooterLinks from '@/components/FooterLinks.vue'
+import FooterCopyright from '@/components/footerCopyright.vue'
+import SocialIcons from '@/components/SocialIcons.vue'
+import HeaderIcons from '@/components/HeaderIcons.vue'
+import NavBar from '@/components/NavBar.vue'
+import Footer from '@/components/Footer.vue'
+import Breadcrumbs from '@/components/Breadcrumbs.vue'
 </script>
 
 <template>
   <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
 
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
+    <Add msg="Livraison gratuite à partir de 50€ !"/>
 
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
+    <div class="wrapper flex justify-between items-center mx-10 my-2">
+      <NavBar />
+      <HeaderIcons />
     </div>
+
+    <Breadcrumbs />
+
   </header>
 
-  <RouterView />
+  <div class="grow flex justify-center items-center">
+    <RouterView />
+  </div>
+
+  <footer class="bg-black text-info w-full flex-col p-10">
+    <Footer />
+  </footer>
+
 </template>
 
 <style scoped>
 header {
-  line-height: 1.5;
-  max-height: 100vh;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-nav {
+  box-sizing: border-box;
   width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
 }
 
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
 
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-@media (min-width: 1024px) {
+/*@media (min-width: 1024px) {
   header {
     display: flex;
     place-items: center;
@@ -70,7 +58,7 @@ nav a:first-of-type {
   header .wrapper {
     display: flex;
     place-items: flex-start;
-    flex-wrap: wrap;
+    //flex-wrap: wrap;
   }
 
   nav {
@@ -81,5 +69,5 @@ nav a:first-of-type {
     padding: 1rem 0;
     margin-top: 1rem;
   }
-}
+}*/
 </style>
