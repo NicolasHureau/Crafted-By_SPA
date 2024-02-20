@@ -4,7 +4,7 @@ import { RouterLink } from 'vue-router';
 </script>
 
 <template>
-  <nav class=" flex justify-center items-center grow">
+  <nav class="flex justify-center items-center grow">
 
     <button role="button" class="dropdown">
       <i-ph-list :style="{ fontSize:'30px' }"/>
@@ -33,26 +33,30 @@ import { RouterLink } from 'vue-router';
 <style scoped>
 nav button {
   visibility: hidden;
+  position: absolute;
 }
 nav a.router-link-exact-active {
   @apply text-primary;
 }
 
-/*nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}*/
+nav a.router-link-exact-active:hover {
+  @apply text-secondary;
+}
+
+nav a:hover {
+  @apply text-primary;
+}
 
 nav a {
   display: inline-block;
   padding: 0 1rem;
-  /*border-left: 1px solid var(--color-border);*/
-  /*color: theme('colors.secondary');*/
   @apply text-secondary;
 }
 
-/*nav a:first-of-type {
-  border: 0;
-}*/
+.dropdown a {
+  margin-top: 0.5rem;
+  white-space: nowrap;
+}
 
 @media (max-width: 1024px) {
   nav {
@@ -60,11 +64,11 @@ nav a {
   }
   nav button {
     visibility: visible;
+    position: relative;
     margin: 0 0.5rem;
   }
   #menu {
     display: none;
   }
-
 }
 </style>

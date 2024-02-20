@@ -1,12 +1,11 @@
-<script setup>
-// export default {
-//   name: 'Catalogue'
-// }
+<script>
+
 </script>
 
 <template>
   <div class="flex-col justify-center items-center">
-    coucou
+
+
   </div>
 </template>
 
