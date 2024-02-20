@@ -5,10 +5,24 @@ import NavBar from '@/components/NavBar.vue';
 import Breadcrumbs from '@/components/Breadcrumbs.vue';
 import { defineComponent } from 'vue'
 
-export default defineComponent({
-  components: { Breadcrumbs, HeaderIcons, NavBar, Add }
-})
+// import useProductStore from '@/stores/product';
+// import { mapState, mapActions } from 'pinia';
 
+export default defineComponent({
+  components: { Breadcrumbs, HeaderIcons, NavBar, Add },
+  // computed: {
+  //   ...mapState(useProductStore, [
+  //     'totalLaptops',
+  //     'pricePerLaptop',
+  //     'totalLaptopPrices'
+  //   ])
+  // },
+  // methods: {
+  //   ...mapActions(useProductStore, [
+  //     'addLaptop'
+  //   ])
+  // }
+})
 
 </script>
 
@@ -27,7 +41,11 @@ export default defineComponent({
   </header>
 
   <div class="grow flex justify-center items-center">
+    <div class="flex-col justify-center items-center">
+
     <RouterView />
+
+    </div>
   </div>
 
   <footer class="bg-black text-info w-full flex-col p-10">
