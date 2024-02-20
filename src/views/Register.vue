@@ -2,6 +2,7 @@
 import axios from 'axios';
 import useApiStore from '../stores/api';
 import { mapActions, mapState } from 'pinia';
+import useUserStore from '@/stores/user.js'
 
 export default {
   data: () => {
@@ -20,9 +21,26 @@ export default {
   computed: {
     ...mapState(useApiStore, [
       'API_URL',
+    ]),
+    ...mapState(useUserStore, [
+      'userIsAuth'
     ])
   },
+  watch: {
+    userIsAuth() {
+      /*
+          By default the userIsAuth value is false, On
+          successful registration, after the storeLoggedInUser
+          method is called, the userIsAuth value is set to
+          true and this watch property is invoked. The code
+          below will then run.
+      */
+    }
+  },
   methods: {
+    ...mapActions(useUserStore, [
+      'storeLoggedInUser',
+    ]),
     registerUser() {
       const _this = this;
       _this.submitting = true;
@@ -36,9 +54,14 @@ export default {
         zip_code: _this.zip_code,
         city: _this.city,
       }).then(RESPONSE => {
+        console.log(RESPONSE)
+        const token = RESPONSE.data.token;
+        const user = RESPONSE.data.user;
+        _this.storeLoggedInUser(token, user);
         alert(RESPONSE.data.message);
       }).catch(ERROR => {
-        alert(ERROR.response.data.message);
+        console.log(ERROR);
+        alert(ERROR.message);
       }).then(() => {
         _this.submitting = false;
       });
@@ -66,7 +89,7 @@ export default {
 
           <div class="form-group p-2">
             <label for="email" class="control-label sr-only">Email</label>
-            <input v-model="email" class="form-control" id="email" placeholder="Your email" />
+            <input v-model="email" type="email" class="form-control" id="email" placeholder="Your email" />
           </div>
           <div class="form-group p-2">
             <label for="password" class="control-label sr-only">Mot de passe</label>
@@ -90,7 +113,7 @@ export default {
             <input v-model="city" class="form-control" id="city" placeholder="Ville" />
           </div>
 
-          <button type="submit" class="btn btn-primary  btn-block mt-5">S'enregistrer</button>
+          <button type="submit" class="btn btn-primary btn-block mt-5">S'enregistrer</button>
         </form>
       </div>
     </div>

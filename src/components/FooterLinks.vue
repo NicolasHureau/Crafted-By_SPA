@@ -21,7 +21,7 @@ a {
   div {
     display: flex;
     flex-direction: column;
-    align-items: end;
+    align-items: flex-end;
   }
   div a {
     padding: 0.5rem 0;

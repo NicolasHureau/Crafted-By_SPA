@@ -1,5 +1,61 @@
-<script setup>
-
+<script>
+import axios from 'axios';
+import useApiStore from '../stores/api';
+import useUserStore from '../stores/user';
+import { mapState, mapActions } from 'pinia';
+import user from '../stores/user'
+export default {
+  data: () => {
+    return {
+      loggingOut: false
+    }
+  },
+  computed: {
+    ...mapState(useApiStore, [
+      'API_URL'
+    ]),
+    ...mapState(useUserStore, [
+      'token',
+      // 'userIsAuth'
+    ])
+  },
+  watch: {
+    userIsAuth() {
+      /*
+          At this point the userIsAuth value is true.
+          On successful logout, after the storeLoggedInUser
+          method is called, the userIsAuth value is
+          set to false and this watch property is invoked.
+          The code below will then run.
+      */
+      this.$router.push('/login');
+    }
+  },
+  methods: {
+    user,
+    useUserStore,
+    ...mapActions(useUserStore, [
+      'logoutUser'
+    ]),
+    logUserOut() {
+      const _this = this;
+      _this.loggingOut = true;
+      axios.post(`${_this.API_URL}logout`, {}, {
+        headers: {
+          Authorization: `Bearer ${_this.token}`
+        }
+      }).then(RESPONSE => {
+        alert(RESPONSE.data.message);
+      }).catch(ERROR => {
+        console.log(ERROR);
+        alert(ERROR.message);
+      }).then(() => {
+        _this.logoutUser();
+        _this.loggingOut = false;
+      });
+    }
+  }
+}
 </script>
 
 <template>
@@ -23,9 +79,23 @@
 <!--      </div>-->
 <!--    </div>-->
 
-    <RouterLink to="/register">
-      <i-ph-user-circle class="mx-2" />
-    </RouterLink>
+    <div v-if="useUserStore().user">
+      <button role="button" class="dropdown">
+        <i-ph-user-circle class="mx-2" />
+        <div class="dropdown-content text-start">
+<!--          <RouterLink to="/profile">{{ user.firstname }}</RouterLink>-->
+<!--          <RouterLink to="/setting">Paramétres</RouterLink>-->
+<!--          <RouterLink to="/logout">Déconnexion</RouterLink>-->
+          <a @click="loggingOut === false && logUserOut()" href="#">Déconnexion</a>
+        </div>
+      </button>
+    </div>
+    <div v-else>
+      <RouterLink to="/login">
+        <i-ph-user-circle class="mx-2" />
+      </RouterLink>
+    </div>
+
     <RouterLink to="/cart">
       <i-ph-shopping-bag class="mx-2" />
     </RouterLink>

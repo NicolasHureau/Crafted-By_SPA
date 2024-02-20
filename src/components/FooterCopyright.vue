@@ -19,7 +19,7 @@ a {
   div {
     display: flex;
     flex-direction: column;
-    align-items: start;
+    align-items: flex-start;
   }
   div a {
     padding: 0.5rem 0

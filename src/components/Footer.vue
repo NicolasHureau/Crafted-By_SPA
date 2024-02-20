@@ -26,7 +26,7 @@ hr {
   div {
     display: flex;
     flex-direction: column;
-    align-items: start;
+    align-items: flex-start;
     margin: 0;
   }
   img {
