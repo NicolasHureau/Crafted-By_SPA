@@ -1,23 +1,28 @@
 <script>
-import axios from 'axios';
-import useApiStore from '../stores/api';
+// import axios from 'axios';
+// import useApiStore from '../stores/api';
+import api from '../services/api.js';
 import useUserStore from '../stores/user';
 import { mapState, mapActions } from 'pinia';
 import user from '../stores/user'
+import router from '@/router/index.js'
 export default {
   data: () => {
     return {
-      loggingOut: false
+      loggingOut: false,
+      // loggedUser: useUserStore().loggedUser
     }
   },
   computed: {
-    ...mapState(useApiStore, [
-      'API_URL'
-    ]),
+    // ...mapState(useApiStore, [
+    //   'API_URL'
+    // ]),
     ...mapState(useUserStore, [
       'token',
-      // 'userIsAuth'
-    ])
+      'userIsAuth',
+      'loggedUser'
+    ]),
+
   },
   watch: {
     userIsAuth() {
@@ -28,8 +33,8 @@ export default {
           set to false and this watch property is invoked.
           The code below will then run.
       */
-      this.$router.push('/login');
-    }
+      this.$router.push('/');
+    },
   },
   methods: {
     user,
@@ -40,11 +45,12 @@ export default {
     logUserOut() {
       const _this = this;
       _this.loggingOut = true;
-      axios.post(`${_this.API_URL}logout`, {}, {
-        headers: {
-          Authorization: `Bearer ${_this.token}`
-        }
-      }).then(RESPONSE => {
+      // axios.post(`${_this.API_URL}logout`, {}, {
+      api.post('logout',
+        // headers: {
+        //   Authorization: `Bearer ${_this.token}`
+        // }
+      ).then(RESPONSE => {
         alert(RESPONSE.data.message);
       }).catch(ERROR => {
         console.log(ERROR);
@@ -59,50 +65,46 @@ export default {
 </script>
 
 <template>
-  <div class="inline-flex" :style="{ fontSize:'20px' }">
+  <div class="inline-flex">
     <div>
       <input type="search" class="" placeholder="Chercher">
-      <i-ph-magnifying-glass class="mx-2" />
+      <i-ph-magnifying-glass class="icon mx-2" />
 
     </div>
 
-
-<!--    <div>-->
-<!--      <button type="button" id="user-menu-button" aria-expanded="false" aria-haspopup="true">-->
-<!--        <i-ph-user-circle class="mx-2" />-->
-<!--      </button>-->
-<!--      <div class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">-->
-<!--        &lt;!&ndash; Active: "bg-gray-100", Not Active: "" &ndash;&gt;-->
-<!--        <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">Your Profile</a>-->
-<!--        <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">Settings</a>-->
-<!--        <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-2">Sign out</a>-->
-<!--      </div>-->
-<!--    </div>-->
-
-    <div v-if="useUserStore().user">
+    <div v-if="this.token">
       <button role="button" class="dropdown">
-        <i-ph-user-circle class="mx-2" />
-        <div class="dropdown-content text-start">
-<!--          <RouterLink to="/profile">{{ user.firstname }}</RouterLink>-->
-<!--          <RouterLink to="/setting">Paramétres</RouterLink>-->
-<!--          <RouterLink to="/logout">Déconnexion</RouterLink>-->
-          <a @click="loggingOut === false && logUserOut()" href="#">Déconnexion</a>
+        <i-ph-user-circle class="icon mx-2" />
+        <div class="dropdown-content flex flex-col text-start">
+          <span class="text-secondary">Hello</span>
+          <RouterLink to="/profile" class="inline-flex items-center">
+            <i-ph-user-focus class="mr-1" />{{ loggedUser.firstname }}
+          </RouterLink>
+          <RouterLink to="/setting" class="inline-flex items-center">
+            <i-ph-gear-six class="mr-1" />Paramétres
+          </RouterLink>
+          <a @click="loggingOut === false && logUserOut()" href="#" class="inline-flex items-center">
+            <i-ph-sign-out class="mr-1" />Déconnexion
+          </a>
         </div>
       </button>
     </div>
     <div v-else>
       <RouterLink to="/login">
-        <i-ph-user-circle class="mx-2" />
+        <i-ph-user-circle class="icon mx-2" />
       </RouterLink>
     </div>
 
     <RouterLink to="/cart">
-      <i-ph-shopping-bag class="mx-2" />
+      <i-ph-shopping-bag class="icon mx-2" />
     </RouterLink>
 
   </div>
 </template>
 <style scoped>
+.icon {
+  font-size: 20px;
+}
 input {
   visibility: hidden;
   position: absolute;

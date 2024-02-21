@@ -1,18 +1,22 @@
 import { defineStore } from 'pinia';
+import api from '@/services/api.js'
 
 const useProductStore = defineStore('product', {
   state: () => ({
-    totalLaptops: 0,
-    pricePerLaptop: 250000
+    products: []
   }),
   getters: {
-    totalLaptopPrices: (state) => {
-      return state.totalLaptops * state.pricePerLaptop
+    getProduct: (state) => {
+      return (productId) => state.products.find((product) => product.id === productId)
     }
   },
   actions: {
-    addLaptop() {
-      this.totalLaptops++;
+    async fetchProducts() {
+      try {
+        this.products = await api.get('products')
+      } catch (error) {
+        console.log(error)
+      }
     }
   }
 });

@@ -1,6 +1,7 @@
 <script>
-import axios from 'axios';
-import useApiStore from '../stores/api';
+// import axios from 'axios';
+// import useApiStore from '../stores/api';
+import api from '../services/api.js'
 import { mapActions, mapState } from 'pinia';
 import useUserStore from '@/stores/user.js'
 
@@ -19,9 +20,9 @@ export default {
     }
   },
   computed: {
-    ...mapState(useApiStore, [
-      'API_URL',
-    ]),
+    // ...mapState(useApiStore, [
+    //   'API_URL',
+    // ]),
     ...mapState(useUserStore, [
       'userIsAuth'
     ])
@@ -44,7 +45,8 @@ export default {
     registerUser() {
       const _this = this;
       _this.submitting = true;
-      axios.post(`${_this.API_URL}register`, {
+      // axios.post(`${_this.API_URL}register`, {
+      api.post('register',{
         lastname: _this.lastname,
         firstname: _this.firstname,
         email: _this.email,

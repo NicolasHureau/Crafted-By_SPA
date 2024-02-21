@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '@/views/HomeView.vue'
 import Register from '@/views/Register.vue'
 import Login from '@/views/Login.vue'
+import Products from '@/views/Products.vue'
 
 const router = createRouter({
   scrollBehavior: function() {
@@ -21,6 +22,10 @@ const router = createRouter({
     {
       path: '/register',
       component: Register
+    },
+    {
+      path: '/products',
+      component: Products
     },
     {
       path: '/about',

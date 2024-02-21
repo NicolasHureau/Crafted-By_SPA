@@ -1,8 +1,10 @@
 <script>
-import axios from 'axios';
-import useApiStore from '../stores/api';
+// import axios from 'axios';
+// import useApiStore from '../stores/api';
+import api from '../services/api.js';
 import useUserStore from '../stores/user';
 import { mapActions, mapState } from 'pinia';
+
 export default {
   data: () => {
     return {
@@ -12,9 +14,9 @@ export default {
     }
   },
   computed: {
-    ...mapState(useApiStore, [
-      'API_URL',
-    ]),
+    // ...mapState(useApiStore, [
+    //   'API_URL',
+    // ]),
     ...mapState(useUserStore, [
       'token',
       // 'userIsAuth'
@@ -39,7 +41,8 @@ export default {
     loginUser() {
       const _this = this;
       _this.submitting = true;
-      axios.post(`${_this.API_URL}login`, {
+      // axios.post(`${_this.API_URL}login`, {
+      api.post('login', {
         email: _this.email,
         password: _this.password,
       }).then(RESPONSE => {
@@ -47,10 +50,10 @@ export default {
         const token = RESPONSE.data.accessToken;
         const user = RESPONSE.data.user;
         _this.storeLoggedInUser(token, user);
-        alert(RESPONSE.data.message);
+        alert(RESPONSE.statusText);
       }).catch(ERROR => {
         console.log(ERROR);
-        alert(ERROR.data.message);
+        alert(ERROR.message);
       }).then(() => {
         _this.submitting = false;
       });
@@ -75,16 +78,18 @@ export default {
             <label for="signin-password" class="control-label sr-only">Mot de passe</label>
             <input v-model="password" type="password" class="form-control" id="signin-password" placeholder="Mot de Passe" />
           </div>
-          <div class="form-group clearfix">
-            <label class="fancy-checkbox element-left">
-              <input type="checkbox" />
-              <span>Se souvenr de moi</span>
-            </label>
-          </div>
-          <button type="submit" class="btn btn-primary btn-lg btn-block">Connexion</button>
-          <div class="bottom">
-            <span class="helper-text m-b-10"><i class="fa fa-lock"></i><a href="javascript: void(0);">Mot de passe oublié?</a></span>
-            <span>Pas encore de compte?<router-link to="/register">s'enregister</router-link></span>
+<!--          <div class="form-group clearfix p-2">-->
+<!--            <label class="fancy-checkbox element-left">-->
+<!--              <input type="checkbox" />-->
+<!--              <span>Se souvenr de moi</span>-->
+<!--            </label>-->
+<!--          </div>-->
+          <button type="submit" class="btn btn-primary btn-block mt-2">Connexion</button>
+          <div class="bottom flex flex-col">
+            <span class="helper-text m-b-10 text-primary"><a href="javascript: void(0);">Mot de passe oublié?</a></span>
+            <span class="text-secondary">Pas encore de compte?
+              <router-link to="/register" class="text-primary"> S'enregister</router-link>
+            </span>
           </div>
         </form>
       </div>
@@ -93,5 +98,11 @@ export default {
 </template>
 
 <style scoped>
+input {
+  border: 1px solid;
+  border-radius: 5px;
+  @apply border-info;
+  padding: 5px 10px;
+}
 
 </style>
