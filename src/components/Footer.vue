@@ -1,6 +1,6 @@
 <script setup>
 import FooterCopyright from '@/components/FooterCopyright.vue'
-import SocialIcons from '@/components/SocialIcons.vue'
+import SocialIcons from '@/components/FooterSocialIcons.vue'
 import FooterLinks from '@/components/FooterLinks.vue'
 </script>
 

@@ -3,7 +3,7 @@
 // import useApiStore from '../stores/api';
 import api from '../services/api.js'
 import { mapActions, mapState } from 'pinia';
-import useUserStore from '@/stores/user.js'
+import useUserStore from '@/stores/userStore.js'
 
 export default {
   data: () => {

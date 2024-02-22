@@ -1,5 +1,5 @@
 <script>
-import useProductStore from '../stores/product';
+import useProductStore from '../stores/productStore.js';
 import { mapState, mapActions } from 'pinia';
 export default {
   computed: {

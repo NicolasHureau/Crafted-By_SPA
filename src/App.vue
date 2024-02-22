@@ -1,6 +1,6 @@
 <script>
 import Add from '@/components/Add.vue'
-import HeaderIcons from '@/components/HeaderIcons.vue';
+import HeaderIcons from '@/components/NavbarIcons.vue';
 import NavBar from '@/components/NavBar.vue';
 import Breadcrumbs from '@/components/Breadcrumbs.vue';
 import { defineComponent } from 'vue'
