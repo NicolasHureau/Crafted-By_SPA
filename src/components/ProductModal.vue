@@ -1,6 +1,9 @@
 <script>
+import ButtonAddToCart from '@/components/ButtonAddToCart.vue'
+
 export default {
   name: 'ProductModal',
+  components: { ButtonAddToCart },
   props: ['product', 'shownProduct'],
 }
 </script>
@@ -10,6 +13,7 @@ export default {
   <dialog :id="product.id" class="modal">
     <div class="modal-box">
       <h2>{{ shownProduct }}</h2>
+      <ButtonAddToCart :product-id="product.id" />
     </div>
     <form method="dialog" class="modal-backdrop">
       <button>close</button>

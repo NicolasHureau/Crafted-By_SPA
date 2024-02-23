@@ -2,8 +2,8 @@
 import ProductListItem from '@/components/ProductListItem.vue'
 export default {
   components: { ProductListItem },
-  mounted() {
-    this.$Product.fetchProducts();
+  async mounted() {
+    await this.$Product.fetchProducts();
   }
 }
 </script>

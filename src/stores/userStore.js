@@ -1,10 +1,13 @@
 import { defineStore } from 'pinia';
 import api from '@/services/api.js';
+import userDetail from '@/components/UserDetails.vue'
 
 const useUserStore = defineStore('user', {
   state: () => ({
     token: localStorage.getItem('token') || null,
     storedUser: localStorage.getItem('user') || null,
+    userDetails: [],
+    allUser: [],
   }),
   getters: {
     // user: state => {
@@ -66,6 +69,24 @@ const useUserStore = defineStore('user', {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
         this.$reset();
+      })
+    },
+    async fetchUserDetails(userId) {
+      await api.get(`users/${userId}`
+      ).then(response => {
+        this.userDetails = (response.data.user)
+      }).catch(error => {
+        console.log(error);
+        alert(error);
+      })
+    },
+    async fetchAllUsers() {
+      await api.get('users'
+      ).then(response => {
+        console.log(response);
+      }).catch(error => {
+        console.log(error);
+        alert(error.message)
       })
     },
     // storeLoggedInUser(token, user) {

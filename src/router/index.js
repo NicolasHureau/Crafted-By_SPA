@@ -4,6 +4,7 @@ import Register from '@/views/Register.vue'
 import Login from '@/views/Login.vue'
 import ProductsList from '@/views/ProductsList.vue'
 import BusinessList from '@/views/BusinessList.vue'
+import UserProfile from '@/views/UserProfile.vue'
 
 const router = createRouter({
   scrollBehavior: function() {
@@ -23,6 +24,10 @@ const router = createRouter({
     {
       path: '/register',
       component: Register
+    },
+    {
+      path: '/user/profile',
+      component: UserProfile
     },
     {
       path: '/products',

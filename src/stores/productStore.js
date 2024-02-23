@@ -28,7 +28,12 @@ const useProductStore = defineStore('product', {
       }).catch(error => {
         console.log(error);
       })
+    },
+    getNameAndPrice(productId) {
+      let cartProduct = this.consultedProducts.find((product) => product.id === productId);
+      return [productId, cartProduct.name, cartProduct.price]
     }
+
   }
 });
 

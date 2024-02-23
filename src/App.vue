@@ -1,27 +1,12 @@
 <script>
 import Add from '@/components/Add.vue'
-import HeaderIcons from '@/components/NavbarIcons.vue';
-import NavBar from '@/components/NavBar.vue';
+import NavbarIcons from '@/components/NavbarIcons.vue';
+import NavbarMenu from '@/components/NavBar.vue';
 import Breadcrumbs from '@/components/Breadcrumbs.vue';
 import { defineComponent } from 'vue'
 
-// import useProductStore from '@/stores/product';
-// import { mapState, mapActions } from 'pinia';
-
 export default defineComponent({
-  components: { Breadcrumbs, HeaderIcons, NavBar, Add },
-  // computed: {
-  //   ...mapState(useProductStore, [
-  //     'totalLaptops',
-  //     'pricePerLaptop',
-  //     'totalLaptopPrices'
-  //   ])
-  // },
-  // methods: {
-  //   ...mapActions(useProductStore, [
-  //     'addLaptop'
-  //   ])
-  // }
+  components: { Breadcrumbs, NavbarIcons, NavbarMenu, Add },
 })
 
 </script>
@@ -32,8 +17,8 @@ export default defineComponent({
     <Add msg="Livraison gratuite à partir de 50€ !"/>
 
     <div class="wrapper flex justify-between items-center mx-10 my-2">
-      <NavBar />
-      <HeaderIcons />
+      <NavbarMenu />
+      <NavbarIcons />
     </div>
 
     <Breadcrumbs />

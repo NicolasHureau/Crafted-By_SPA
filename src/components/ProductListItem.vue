@@ -1,8 +1,9 @@
 <script>
 import ProductModal from '@/components/ProductModal.vue'
+import ButtonAddToCart from '@/components/ButtonAddToCart.vue'
 export default {
   name: 'ProductListItem',
-  components: { ProductModal },
+  components: { ButtonAddToCart, ProductModal },
   props: ['product'],
   data: () => {
     return {
@@ -20,17 +21,20 @@ export default {
 
 <template>
 
-  <div @click="showModal" class="">
-    <h2>{{ product.name }}</h2>
-    <img :src=" product.image ">
+  <div class="item">
+    <div @click="showModal">
+      <h2>{{ product.name }}</h2>
+      <img :src=" product.image ">
+    </div>
     <span class="">{{ product.price }} €</span>
+    <ButtonAddToCart :product-id="product.id" />
   </div>
   <ProductModal :product="product" :shown-product="shownProduct"/>
 
 </template>
 
 <style scoped>
-div {
+.item {
   width : 30%;
 }
 img {
