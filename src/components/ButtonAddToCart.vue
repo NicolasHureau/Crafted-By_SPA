@@ -6,7 +6,6 @@ export default {
     async addToCart() {
       await this.$Product.getProduct(this.productId)
         .then(this.$Cart.addToCart(this.productId))
-        // .then(this.$Cart.updateDropdownCart())
     }
   }
 }
@@ -14,7 +13,7 @@ export default {
 
 <template>
 
-  <button @click="addToCart">Ajouter</button>
+  <button @click="addToCart" class="btn bg-black text-info grow">Ajouter</button>
 
 </template>
 

@@ -32,7 +32,7 @@ const useProductStore = defineStore('product', {
     getNameAndPrice(productId) {
       let cartProduct = this.consultedProducts.find((product) => product.id === productId);
       return [productId, cartProduct.name, cartProduct.price]
-    }
+    },
 
   }
 });

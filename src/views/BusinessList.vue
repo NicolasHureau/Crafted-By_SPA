@@ -10,12 +10,12 @@ export default {
 
 <template>
 
-  <div class="">
+  <main class="">
     <BusinessListItem v-for="business in $Business.allBusinesses"
                       :business="business"
                       :key="business.id"
                       />
-  </div>
+  </main>
 
 </template>
 

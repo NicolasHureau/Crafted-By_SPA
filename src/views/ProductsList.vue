@@ -10,12 +10,12 @@ export default {
 
 <template>
 
-  <div class="flex flex-wrap justify-center gap-10 p-10">
+  <main class="flex flex-wrap justify-center gap-5 ">
     <ProductListItem v-for="product in $Product.allProducts"
                      :product="product"
                      :key="product.id"
     />
-  </div>
+  </main>
 
 </template>
 

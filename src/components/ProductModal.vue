@@ -12,7 +12,9 @@ export default {
 
   <dialog :id="product.id" class="modal">
     <div class="modal-box">
-      <h2>{{ shownProduct }}</h2>
+      <div v-for="(value, key) in shownProduct">
+        <p><span>{{ key }} : </span><span>{{ value}}</span></p>
+      </div>
       <ButtonAddToCart :product-id="product.id" />
     </div>
     <form method="dialog" class="modal-backdrop">

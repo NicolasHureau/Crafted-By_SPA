@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia';
 import api from '@/services/api.js';
-import userDetail from '@/components/UserDetails.vue'
 
 const useUserStore = defineStore('user', {
   state: () => ({
@@ -19,6 +18,7 @@ const useUserStore = defineStore('user', {
     // userIsAuth: state => !state.token,
     loggedUser: state => {
       if (state.storedUser) {
+        console.log(state.storedUser)
         return JSON.parse(localStorage.getItem('user'));
       }
       return null;
@@ -26,18 +26,20 @@ const useUserStore = defineStore('user', {
   },
   actions: {
     async register(formData) {
-      await api.post('register', {
+      await api.post('users', {
         lastname: formData.lastname,
         firstname: formData.firstname,
         email: formData.email,
         password: formData.password,
         password_confirmation: formData.password_confirmation,
-        address: formData.address,
-        zip_code: formData.zip_code,
-        city: formData.city,
+        // address: formData.address,
+        // zip_code: formData.zip_code,
+        // city: formData.city,
       }).then(response => {
-        this.token = response.data.accessToken;
-        this.storedUser = response.data.user;
+        // this.token = response.data.accessToken;
+        // this.storedUser = response.data.user;
+        localStorage.setItem('token', response.data.accessToken);
+        localStorage.setItem('user', JSON.stringify(response.data.user));
         alert(response.data.message);
       }).catch(error => {
         console.log(error);

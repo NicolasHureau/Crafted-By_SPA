@@ -1,12 +1,11 @@
 <script>
 import Add from '@/components/Add.vue'
 import NavbarIcons from '@/components/NavbarIcons.vue';
-import NavbarMenu from '@/components/NavBar.vue';
-import Breadcrumbs from '@/components/Breadcrumbs.vue';
+import NavbarMenu from '@/components/NavbarMenu.vue';
 import { defineComponent } from 'vue'
 
 export default defineComponent({
-  components: { Breadcrumbs, NavbarIcons, NavbarMenu, Add },
+  components: { NavbarIcons, NavbarMenu, Add },
 })
 
 </script>
@@ -16,12 +15,10 @@ export default defineComponent({
 
     <Add msg="Livraison gratuite à partir de 50€ !"/>
 
-    <div class="wrapper flex justify-between items-center mx-10 my-2">
+    <div class="wrapper flex justify-between items-center md:mx-20 md:my-2 sm:mx-auto sm:my-auto">
       <NavbarMenu />
       <NavbarIcons />
     </div>
-
-    <Breadcrumbs />
 
   </header>
 

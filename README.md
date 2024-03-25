@@ -50,6 +50,10 @@ import dans "tailwind.config.js"
 
     npm run dev
 
+! version de nvm :
+
+    nvm use 18
+
 ### 5 - Axios (https://github.com/axios/axios)
 
     $ npm install axios
@@ -71,3 +75,5 @@ unplugin-icons (https://github.com/unplugin/unplugin-icons) avec l'auto-import
 et de la librairie Phosphor (https://phosphoricons.com/).
     
     npm i -D @iconify-json/ph
+
+### 7 - Pinia
