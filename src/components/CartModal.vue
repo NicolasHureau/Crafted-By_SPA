@@ -1,0 +1,93 @@
+<script>
+
+export default {
+  name: 'CartModal',
+  props: {
+    cart: Object,
+  },
+}
+</script>
+
+<template>
+
+  <dialog id="CartModal" class="modal ">
+
+    <div class="modal-box absolute right-0 rounded-none h-full w-full">
+
+      <div v-if="$Cart.getCartCount > 0" class="flex flex-col h-full">
+
+        <h3 class="text-2xl text-left my-5">Panier</h3>
+
+        <div class="flex-grow overflow-auto">
+          <div v-for="product in cart.products" :key="product.id">
+
+            <div class="flex">
+
+              <img :src=" product.image " class="object-cover w-1/4">
+
+              <div class="grid text-start flex-grow ms-2">
+                <span class="font-bold text-xl">{{ product.name }}</span>
+                <span class="text-primary text-xs">color: {{ product.color}}</span>
+                <div class="bg-info w-fit">
+                  <button type="button" @click="$Cart.subOneProduct(product.id) && this.$parent.updateCart" class="p-2">-</button>
+                  <span class="p-2">{{product.quantity}}</span>
+                  <button type="button" @click="$Cart.addOneProduct(product.id)" class="p-2">+</button>
+                </div>
+              </div>
+
+              <div>
+                <div class="font-bold text-end">€{{ product.price }}</div>
+                <button type="button" @click="$Cart.delProductFromCart(product.id)" class="h-full">
+                  <i-ph-x class="text-md" />
+                </button>
+              </div>
+
+            </div>
+            <hr class="my-3" />
+
+          </div>
+        </div>
+
+        <div>
+          <div class="flex justify-between">
+            <span>Sous-total</span>
+            <span class="font-bold">€{{ cart.subtotal.toFixed(2) }}</span>
+          </div>
+          <hr class="my-3" />
+          <div class="flex justify-between text-xl">
+            <span>Total</span>
+            <span class="font-bold">€{{ cart.total.toFixed(2) }}</span>
+          </div>
+
+          <div>
+            <RouterLink to="/Invoice" type="button" class="btn bg-black text-info w-full rounded-md hover:bg-primary my-5">Payer</RouterLink>
+            <RouterLink to="/Cart" class="link my-10">Voir le panier</RouterLink>
+          </div>
+        </div>
+
+      </div>
+
+      <div v-else class="flex items-center justify-center h-full">
+        <p class="font-bold text-2xl">Votre panier est vide.</p>
+      </div>
+
+    </div>
+
+    <form method="dialog" class="modal-backdrop">
+      <button>close</button>
+    </form>
+
+  </dialog>
+
+</template>
+
+<style scoped>
+
+.modal-box {
+  max-height: 100vh;
+  @media (min-width: 500px) {
+    max-width: 400px;
+  }
+}
+
+</style>

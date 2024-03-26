@@ -10,9 +10,9 @@ const useCartStore = defineStore('cart', {
   getters: {
     getCartCount(state) {
       let cartCount = 0;
-      if(state.currentCart) {
+      if(state.currentCart.length > 0) {
         state.currentCart.forEach((product) => {
-          cartCount += (1 * product[1]);
+          cartCount +=  product.quantity;
         });
       }
       return cartCount;
@@ -64,19 +64,31 @@ const useCartStore = defineStore('cart', {
     addToCart(productId) {
       let alreadyAdd = false;
       this.currentCart.forEach((product) => {
-        if (product[0] === productId) {
-          product[1] += 1;
+        if(product.id === productId) {
+          product.quantity ++;
           alreadyAdd = true;
         }
       })
       if (!alreadyAdd) {
-        this.currentCart.push([productId, 1])
+        this.currentCart.push({
+          id: productId,
+          quantity: 1
+        })
       }
-
-      // console.log(this.currentCart.findIndex((product) => product[0] === productId))
     },
     getProductCount(productId) {
-      return this.currentCart.find((product) => product[0] === productId)[1]
+      return this.currentCart.find((product) => product.id === productId).quantity
+    },
+    addOneProduct(productId) {
+      this.currentCart.find((product) => product.id === productId).quantity ++
+    },
+    subOneProduct(productId) {
+      this.currentCart.find((product) => product.id === productId).quantity --
+    },
+    delProductFromCart(productId) {
+      this.currentCart.splice(
+        this.currentCart.findIndex((product) => product.id === productId),
+        1)
     }
   },
 });

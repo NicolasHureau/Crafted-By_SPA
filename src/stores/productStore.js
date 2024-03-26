@@ -29,11 +29,16 @@ const useProductStore = defineStore('product', {
         console.log(error);
       })
     },
-    getNameAndPrice(productId) {
+    getCartData(productId) {
       let cartProduct = this.consultedProducts.find((product) => product.id === productId);
-      return [productId, cartProduct.name, cartProduct.price]
-    },
-
+      return {
+        id: productId,
+        name: cartProduct.name,
+        image: cartProduct.image,
+        color: cartProduct.color,
+        price: parseFloat(cartProduct.price)
+      }
+    }
   }
 });
 

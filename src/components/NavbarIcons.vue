@@ -1,7 +1,7 @@
 <script>
 import UserRegisterModal from '@/components/UserRegisterModal.vue'
 import UserLoginModal from '@/components/UserLoginModal.vue'
-import CartModal from '@/components/icons/CartModal.vue'
+import CartModal from '@/components/CartModal.vue'
 
 export default {
   components: { CartModal, UserLoginModal, UserRegisterModal },
@@ -9,24 +9,28 @@ export default {
     return {
       cart: {
         products: [],
+        subtotal: 0,
         total: 0
       }
     }
   },
   methods: {
-    async updateDropdownCart() {
+    async updateCart() {
 
       this.cart.products = [];
+      this.cart.subtotal = 0;
       this.cart.total = 0;
 
       if (this.$Cart.getCartCount > 0) {
 
         await this.$Cart.currentCart.forEach((product) => {
 
-          let cartProduct = this.$Product.getNameAndPrice(product[0])
-          cartProduct.push(this.$Cart.getProductCount(product[0]))
+          let cartProduct = this.$Product.getCartData(product.id);
+          cartProduct.quantity = this.$Cart.getProductCount(product.id);
+
           this.cart.products.push(cartProduct);
-          this.cart.total += cartProduct[2]*cartProduct[3];
+          this.cart.subtotal += cartProduct.price;
+          this.cart.total += cartProduct.price*product.quantity;
         })
       }
       document.getElementById("CartModal").showModal();
@@ -85,7 +89,7 @@ export default {
       <UserLoginModal />
     </div>
 
-    <div tabindex="0" role="button" @click="updateDropdownCart" class="btn btn-ghost btn-circle">
+    <div tabindex="0" role="button" @click="updateCart" class="btn btn-ghost btn-circle">
       <div class="indicator">
         <i-ph-shopping-bag class="icon mx-2" />
         <span class="badge badge-sm indicator-item bg-primary text-info">{{ $Cart.getCartCount }}</span>
