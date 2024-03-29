@@ -24,9 +24,16 @@ export default {
 
   <dialog id="UserLoginModal" class="modal">
     <div class="modal-box rounded flex flex-col sm:flex-row w-full p-0">
+
       <figure class="flex justify-center basis-1/2">
         <img class="object-cover" src="../assets/img.png">
+        <form method="dialog" class="absolute top-3 right-3">
+          <button>
+            <i-ph-x class="text-md" />
+          </button>
+        </form>
       </figure>
+
       <div class="m-10 sm:order-first basis-1/2">
         <h2 class="text-4xl font-bold">Se connecter</h2>
         <form class="form-control" @submit.prevent="submit">

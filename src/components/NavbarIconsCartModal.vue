@@ -1,7 +1,12 @@
 <script>
 
 export default {
-  name: 'CartModal',
+  name: 'NavbarIconsCartModal',
+  data: () => {
+    return {
+      width: window.innerWidth
+    }
+  },
   props: {
     cart: Object,
   },
@@ -10,13 +15,20 @@ export default {
 
 <template>
 
-  <dialog id="CartModal" class="modal ">
+  <dialog id="CartModal" class="modal">
 
-    <div class="modal-box absolute right-0 rounded-none h-full w-full">
+    <div class="modal-box absolute right-0 rounded-none h-full w-9/10">
 
       <div v-if="$Cart.getCartCount > 0" class="flex flex-col h-full">
 
-        <h3 class="text-2xl text-left my-5">Panier</h3>
+        <div class="flex justify-between mb-5 items-center">
+          <h3 class="text-2xl text-left">Panier</h3>
+          <form method="dialog" v-show=" width < 500 ">
+            <button>
+              <i-ph-x class="text-md" />
+            </button>
+          </form>
+        </div>
 
         <div class="flex-grow overflow-auto">
           <div v-for="product in cart.products" :key="product.id">
@@ -69,6 +81,11 @@ export default {
 
       <div v-else class="flex items-center justify-center h-full">
         <p class="font-bold text-2xl">Votre panier est vide.</p>
+        <form method="dialog" class="absolute top-3 right-3">
+          <button>
+            <i-ph-x class="text-md" />
+          </button>
+        </form>
       </div>
 
     </div>

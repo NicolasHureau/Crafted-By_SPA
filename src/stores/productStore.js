@@ -38,6 +38,10 @@ const useProductStore = defineStore('product', {
         color: cartProduct.color,
         price: parseFloat(cartProduct.price)
       }
+    },
+    searchProduct(...params) {
+      // spread operator
+
     }
   }
 });

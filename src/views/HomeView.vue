@@ -1,9 +1,11 @@
 <script setup>
-import CatalogueItem from '../components/CatalogueItem.vue'
+// import CatalogueItem from '../components/CatalogueItem.vue'
+import NewProductsList from '@/components/NewProductsList.vue'
 </script>
 
 <template>
   <main>
-    <CatalogueItem />
+<!--    <CatalogueItem />-->
+    <NewProductsList />
   </main>
 </template>

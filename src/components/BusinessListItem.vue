@@ -4,45 +4,36 @@ export default {
   props: ['business'],
   data: () => {
     return {
-      shownBusiness: null,
+      productCount: 0,
     }
   },
-  methods: {
-    async showAccordion() {
-      this.shownBusiness = await this.$Business.getBusiness(this.business.id);
-      // document.getElementById(this.business.id).showAccordion();
+  async mounted() {
+    if(this.$Product.allProducts.length === 0) {
+      await this.$Product.fetchProducts();
     }
+    this.productCount = this.$Product.allProducts.filter((product) => product.business.id === this.business.id).length;
   }
 }
 </script>
 
 <template>
 
-  <div class="collapse">
-    <input type="radio" @click="showAccordion" name="businessAccordion">
-    <div class="collapse-title">{{ business.name }}<span>@ {{ business.email }}</span>
+  <RouterLink :to="'/business/' + business.id" class="card card-side bg-info rounded h-20 my-3">
+
+    <figure class="w-40">
+      <img :src="business.logo" />
+    </figure>
+
+    <div class="card-body p-3">
+      <h3 class="card-title">{{ business.name }}
+        <a href="#" class="text-xs text-primary underline absolute right-3">
+          {{ this.productCount }} articles
+        </a>
+      </h3>
+      <p>{{ business.email }}</p>
     </div>
-    <div class="collapse-content" :id="business.id">
-      <div>
-        <div>BY</div>
-        <div>
-          <span>{{ shownBusiness.firstname }}</span>
-          <span>{{ shownBusiness.lastname}}</span>
-        </div>
-<!--        <img :src="shownBusiness.logo">-->
-<!--      </div>-->
-<!--      <div>-->
-<!--        <div>AT</div>-->
-<!--        <div>-->
-<!--          <span>{{ shownBusiness.address }}</span>-->
-<!--          <span>{{ shownBusiness.zip_code }}</span>-->
-<!--          <span>{{ shownBusiness.city }}</span>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--      <div>{{ shownBusiness.specialities }}</div>-->
-      </div>
-    </div>
-  </div>
+
+  </RouterLink>
 
 </template>
 

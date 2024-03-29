@@ -1,11 +1,12 @@
 import { defineStore } from 'pinia';
 import api from '@/services/api.js';
+import router from '@/router/index.js'
 
 const useUserStore = defineStore('user', {
   state: () => ({
     token: localStorage.getItem('token') || null,
     storedUser: localStorage.getItem('user') || null,
-    userDetails: [],
+    userProfile: {},
     allUser: [],
   }),
   getters: {
@@ -18,7 +19,6 @@ const useUserStore = defineStore('user', {
     // userIsAuth: state => !state.token,
     loggedUser: state => {
       if (state.storedUser) {
-        console.log(state.storedUser)
         return JSON.parse(localStorage.getItem('user'));
       }
       return null;
@@ -73,15 +73,48 @@ const useUserStore = defineStore('user', {
         this.$reset();
       })
     },
-    async fetchUserDetails(userId) {
+    async fetchUserProfile(userId) {
       await api.get(`users/${userId}`
       ).then(response => {
-        this.userDetails = (response.data.user)
+        this.userProfile = (response.data.user)
       }).catch(error => {
         console.log(error);
         alert(error);
       })
     },
+    async updateUserprofile(formData) {
+      await api.put(`users/${formData.id}`, {
+          lastname: formData.lastname,
+          firstname: formData.firstname,
+          email: formData.email,
+      }).then(response => {
+        alert(response.data.message);
+      }).catch(error => {
+        console.log(error);
+        alert(error.message);
+      })
+    },
+    async updatePassword(formData) {
+      console.log(this.userProfile.email)
+      await api.put('password', {
+        email: this.userProfile.email,
+        old_password: formData.oldPassword,
+        password: formData.password,
+        password_confirmation: formData.password_confirmation
+      }).then(response => {
+        alert(response.data.message);
+        router.back();
+      }).catch(error => {
+        console.log(error);
+        alert(error.response.data.message);
+      })
+    },
+    // async getUserProfile(userId) {
+    //   if (!this.userProfile) {
+    //     this.userProfile = await this.fetchUserProfile(userId);
+    //   }
+    //   return this.userProfile;
+    // },
     async fetchAllUsers() {
       await api.get('users'
       ).then(response => {

@@ -1,11 +1,15 @@
 <script>
 export default {
   name: 'ButtonAddToCart',
-  props: ['productId'],
+  props: [
+    'productId',
+    'quantity'
+  ],
   methods: {
     async addToCart() {
       await this.$Product.getProduct(this.productId)
-        .then(this.$Cart.addToCart(this.productId))
+        .then(this.$Cart.addToCart(this.productId, this.quantity));
+      this.$parent.quantity = this.$Cart.currentCart.find((product) => product.id === this.productId).quantity
     }
   }
 }
@@ -13,7 +17,7 @@ export default {
 
 <template>
 
-  <button @click="addToCart" class="btn bg-black text-info grow">Ajouter</button>
+  <button @click="addToCart" class="btn bg-black text-info rounded">AJOUTER AU PANIER</button>
 
 </template>
 

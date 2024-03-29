@@ -61,18 +61,22 @@ const useCartStore = defineStore('cart', {
     //     this.currentCart = lastCart;
     //   }
     // },
-    addToCart(productId) {
+    addToCart(productId, quantity = 1) {
       let alreadyAdd = false;
       this.currentCart.forEach((product) => {
         if(product.id === productId) {
-          product.quantity ++;
+          if (product.quantity === quantity) {
+            product.quantity ++
+          } else {
+            product.quantity = quantity;
+          }
           alreadyAdd = true;
         }
       })
       if (!alreadyAdd) {
         this.currentCart.push({
           id: productId,
-          quantity: 1
+          quantity: quantity
         })
       }
     },

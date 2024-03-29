@@ -1,5 +1,5 @@
 <script>
-import UserDetails from '@/components/UserDetails.vue'
+import UserDetails from '@/components/UserProfile.vue'
 import UserInvoicesList from '@/components/UserInvoicesList.vue'
 
 export default {

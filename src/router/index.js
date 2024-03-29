@@ -3,6 +3,13 @@ import HomeView from '@/views/HomeView.vue'
 import ProductsList from '@/views/ProductsList.vue'
 import BusinessList from '@/views/BusinessList.vue'
 import UserProfile from '@/views/UserProfile.vue'
+import CartView from '@/views/CartView.vue'
+import BusinessDetail from '@/components/BusinessDetail.vue'
+import ProductDetail from '@/components/ProductDetail.vue'
+import UserProfilePassword from '@/components/UserProfilePassword.vue'
+import UserAddress from '@/components/UserAddress.vue'
+import BusinessRegister from '@/components/BusinessRegister.vue'
+import UserBusiness from '@/components/UserBusiness.vue'
 
 const router = createRouter({
   scrollBehavior: function() {
@@ -20,12 +27,40 @@ const router = createRouter({
       component: UserProfile
     },
     {
+      path: '/user/password',
+      component: UserProfilePassword
+    },
+    {
+      path: '/user/address',
+      component: UserAddress
+    },
+    {
+      path: '/user/businessregister',
+      component: BusinessRegister
+    },
+    {
+      path: '/user/business',
+      component: UserBusiness
+    },
+    {
       path: '/products',
       component: ProductsList
     },
     {
-      path: '/businesses',
+      path: '/products/:id',
+      component: ProductDetail
+    },
+    {
+      path: '/business',
       component: BusinessList
+    },
+    {
+      path: '/business/:id',
+      component: BusinessDetail
+    },
+    {
+      path: '/cart',
+      component: CartView
     },
     {
       path: '/about',

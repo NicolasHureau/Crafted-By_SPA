@@ -28,6 +28,10 @@ const useBusinessStore = defineStore('business', {
       }).catch(error => {
         console.log(error);
       })
+    },
+    getProductsCount(businessId) {
+      console.log(businessId)
+      return this.$Product.allProducts.filter((product) => product.businessId === businessId).length
     }
   }
 });

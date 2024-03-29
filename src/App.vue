@@ -15,19 +15,17 @@ export default defineComponent({
 
     <Add msg="Livraison gratuite à partir de 50€ !"/>
 
-    <div class="wrapper flex justify-between items-center md:mx-20 md:my-2 sm:mx-auto sm:my-auto">
+    <div class="flex justify-between items-center md:mx-10">
       <NavbarMenu />
       <NavbarIcons />
     </div>
 
   </header>
 
-  <div class="grow flex justify-center items-center">
-    <div class="flex-col justify-center items-center">
+  <div class="grow flex flex-col justify-center items-center">
 
     <RouterView />
 
-    </div>
   </div>
 
   <footer class="bg-black text-info w-full flex-col p-10">
@@ -37,6 +35,7 @@ export default defineComponent({
 </template>
 
 <style scoped>
+
 header {
   box-sizing: border-box;
   width: 100%;

@@ -1,6 +1,8 @@
 <script>
 import ProductListItem from '@/components/ProductListItem.vue'
+
 export default {
+  name: 'NewProductsList',
   components: { ProductListItem },
   async mounted() {
     await this.$Product.fetchProducts();
@@ -10,12 +12,16 @@ export default {
 
 <template>
 
-  <main class="flex flex-wrap justify-around my-10">
-    <ProductListItem v-for="product in $Product.allProducts"
-                     :product="product"
-                     :key="product.id"
-    />
-  </main>
+  <div>
+    <h3 class="text-3xl font-bold">NOUVEAUTES</h3>
+<!--    <div>-->
+<!--      <ProductListItem />-->
+<!--    </div>-->
+  </div>
+
+<!--  <pre>-->
+<!--    {{$Product.allProducts}}-->
+<!--  </pre>-->
 
 </template>
 

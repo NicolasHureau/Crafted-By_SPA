@@ -1,19 +1,20 @@
-<script setup>
-import { RouterLink } from 'vue-router';
+<script>
+export default {
+  methods: {
+    openMenuModal() {
 
+      document.getElementById("MenuModal").showModal();
+    }
+  }
+}
 </script>
 
 <template>
   <nav class="flex justify-center items-center grow">
 
-    <button role="button" class="dropdown">
+    <button role="button" @click="openMenuModal" class="">
       <i-ph-list :style="{ fontSize:'30px' }"/>
-      <div class="dropdown-content text-start">
-        <RouterLink to="/">Accueil</RouterLink>
-        <RouterLink to="/businesses">Artisans</RouterLink>
-        <RouterLink to="/products">Articles</RouterLink>
-        <RouterLink to="/about">Contactez-nous</RouterLink>
-      </div>
+      <NavbarMenuModal />
     </button>
 
     <RouterLink to="/">
@@ -22,7 +23,7 @@ import { RouterLink } from 'vue-router';
 
     <div class="grow text-center" id="menu">
       <RouterLink to="/">Accueil</RouterLink>
-      <RouterLink to="/businesses">Artisans</RouterLink>
+      <RouterLink to="/business">Artisans</RouterLink>
       <RouterLink to="/products">Articles</RouterLink>
       <RouterLink to="/about">Contactez-nous</RouterLink>
     </div>

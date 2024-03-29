@@ -27,9 +27,16 @@ export default {
 
   <dialog id="UserRegisterModal" class="modal">
     <div class="modal-box rounded flex flex-col sm:flex-row w-full p-0">
+
       <figure class="flex justify-center basis-1/2">
         <img class="object-cover" src="../assets/img.png">
+        <form method="dialog" class="absolute top-3 right-3">
+          <button>
+            <i-ph-x class="text-md" />
+          </button>
+        </form>
       </figure>
+
       <div class="m-10 sm:order-first basis-1/2">
         <h2 class="text-4xl font-bold">S'enregistrer</h2>
         <form class="form-control" @submit.prevent="submit">
@@ -64,7 +71,7 @@ export default {
             </label>
           </div>
           <div class="modal-action">
-            <button type="submit" class="btn bg-black text-info w-full rounded-md hover:bg-primary">S'ENREGISTRER</button>
+            <button type="submit" class="btn bg-black text-info w-full rounded-md hover:bg-primary" disabled>S'ENREGISTRER</button>
           </div>
         </form>
       </div>

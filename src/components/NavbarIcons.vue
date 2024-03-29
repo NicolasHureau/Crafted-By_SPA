@@ -1,10 +1,11 @@
 <script>
 import UserRegisterModal from '@/components/UserRegisterModal.vue'
 import UserLoginModal from '@/components/UserLoginModal.vue'
-import CartModal from '@/components/CartModal.vue'
+import NavbarIconsCartModal from '@/components/NavbarIconsCartModal.vue'
+import NavbarIconsUserModal from '@/components/NavbarIconsUserModal.vue'
 
 export default {
-  components: { CartModal, UserLoginModal, UserRegisterModal },
+  components: { NavbarIconsUserModal, NavbarIconsCartModal, UserLoginModal, UserRegisterModal },
   data: () => {
     return {
       cart: {
@@ -45,40 +46,47 @@ export default {
       document.getElementById("UserRegisterModal").close();
       document.getElementById("UserLoginModal").showModal();
     },
+    openNavbarIconsUserModal() {
+      document.getElementById("UserModal").showModal();
+    }
   }
 }
 </script>
 
 <template>
 
-  <div class="inline-flex">
+  <div class="flex me-3">
 
     <div class="flex items-center">
-      <input type="search" class="" placeholder="Chercher">
+<!--      <input type="search" class="" placeholder="Chercher">-->
       <i-ph-magnifying-glass class="icon mx-2" />
     </div>
 
     <div v-if="$User.token" class="flex items-center">
-      <button role="button" class="dropdown">
+<!--      <button role="button" class="dropdown">-->
+<!--        <i-ph-user-circle class="icon mx-2" />-->
+
+<!--        <div class="dropdown-content flex flex-col text-start rounded p-3 bg-base-100 shadow">-->
+<!--          <span class="text-secondary">Hello</span>-->
+<!--          <RouterLink to="/user/profile" class="inline-flex items-center">-->
+<!--&lt;!&ndash;            <i-ph-user-focus class="mr-1" />{{ loggedUser.firstname }}&ndash;&gt;-->
+<!--            <i-ph-user-focus class="mr-1" />{{ $User.loggedUser.firstname }}-->
+
+<!--          </RouterLink>-->
+<!--          <RouterLink to="/setting" class="inline-flex items-center">-->
+<!--            <i-ph-gear-six class="mr-1" />Paramétres-->
+<!--          </RouterLink>-->
+<!--&lt;!&ndash;          <a @click="loggingOut === false && logUserOut()" href="#" class="inline-flex items-center">&ndash;&gt;-->
+<!--          <a @click="$User.logout" href="#" class="inline-flex items-center">-->
+<!--            <i-ph-sign-out class="mr-1" />Déconnexion-->
+<!--          </a>-->
+<!--        </div>-->
+
+<!--      </button>-->
+      <button @click="openNavbarIconsUserModal">
         <i-ph-user-circle class="icon mx-2" />
-
-        <div class="dropdown-content flex flex-col text-start rounded p-3 bg-base-100 shadow">
-          <span class="text-secondary">Hello</span>
-          <RouterLink to="/user/profile" class="inline-flex items-center">
-<!--            <i-ph-user-focus class="mr-1" />{{ loggedUser.firstname }}-->
-            <i-ph-user-focus class="mr-1" />{{ $User.loggedUser.firstname }}
-
-          </RouterLink>
-          <RouterLink to="/setting" class="inline-flex items-center">
-            <i-ph-gear-six class="mr-1" />Paramétres
-          </RouterLink>
-<!--          <a @click="loggingOut === false && logUserOut()" href="#" class="inline-flex items-center">-->
-          <a @click="$User.logout" href="#" class="inline-flex items-center">
-            <i-ph-sign-out class="mr-1" />Déconnexion
-          </a>
-        </div>
-
       </button>
+      <NavbarIconsUserModal />
     </div>
 
     <div v-else class="flex items-center">
@@ -89,13 +97,13 @@ export default {
       <UserLoginModal />
     </div>
 
-    <div tabindex="0" role="button" @click="updateCart" class="btn btn-ghost btn-circle">
+    <button tabindex="0" role="button" @click="updateCart" class="btn btn-ghost btn-circle">
       <div class="indicator">
         <i-ph-shopping-bag class="icon mx-2" />
-        <span class="badge badge-sm indicator-item bg-primary text-info">{{ $Cart.getCartCount }}</span>
+        <span class="badge badge-sm indicator-item bg-success text-info right-2 top-1">{{ $Cart.getCartCount }}</span>
       </div>
-      <CartModal :cart=cart />
-    </div>
+      <NavbarIconsCartModal :cart=cart />
+    </button>
 
   </div>
 
@@ -104,7 +112,7 @@ export default {
 <style scoped>
 
 .icon {
-  font-size: 25px;
+  font-size: 23px;
   @media (max-width: 640px) {
     font-size: 18px;
   }
