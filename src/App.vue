@@ -3,10 +3,16 @@ import Add from '@/components/Add.vue'
 import NavbarIcons from '@/components/NavbarIcons.vue';
 import NavbarMenu from '@/components/NavbarMenu.vue';
 import { defineComponent } from 'vue'
+import NavbarIconsSearchDropdown from '@/components/NavbarIconsSearchDropdown.vue'
 
-export default defineComponent({
-  components: { NavbarIcons, NavbarMenu, Add },
-})
+export default {
+  components: { NavbarIconsSearchDropdown, NavbarIcons, NavbarMenu, Add },
+  data: () => {
+    return {
+      filters: false
+    }
+  }
+}
 
 </script>
 
@@ -19,6 +25,8 @@ export default defineComponent({
       <NavbarMenu />
       <NavbarIcons />
     </div>
+
+    <NavbarIconsSearchDropdown v-if="filters" class="relative" />
 
   </header>
 

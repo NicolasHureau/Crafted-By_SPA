@@ -1,4 +1,5 @@
 <script>
+
 export default {
   methods: {
     openMenuModal() {
@@ -10,6 +11,7 @@ export default {
 </script>
 
 <template>
+
   <nav class="flex justify-center items-center grow">
 
     <button role="button" @click="openMenuModal" class="">
@@ -27,6 +29,7 @@ export default {
       <RouterLink to="/products">Articles</RouterLink>
       <RouterLink to="/about">Contactez-nous</RouterLink>
     </div>
+
   </nav>
 
 </template>

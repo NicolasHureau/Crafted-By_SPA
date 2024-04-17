@@ -4,9 +4,17 @@ import UserLoginModal from '@/components/UserLoginModal.vue'
 import NavbarIconsCartModal from '@/components/NavbarIconsCartModal.vue'
 import NavbarIconsUserModal from '@/components/NavbarIconsUserModal.vue'
 
-export default {
-  components: { NavbarIconsUserModal, NavbarIconsCartModal, UserLoginModal, UserRegisterModal },
-  data: () => {
+export default
+{
+  components:
+  {
+    NavbarIconsUserModal,
+    NavbarIconsCartModal,
+    UserLoginModal,
+    UserRegisterModal
+  },
+  data: () =>
+  {
     return {
       cart: {
         products: [],
@@ -15,39 +23,45 @@ export default {
       }
     }
   },
-  methods: {
-    async updateCart() {
+  methods:
+    {
+    async updateCart()
+    {
+      this.cart.products = []
+      this.cart.subtotal = 0
+      this.cart.total = 0
 
-      this.cart.products = [];
-      this.cart.subtotal = 0;
-      this.cart.total = 0;
+      if (this.$Cart.getCartCount > 0)
+      {
+        await this.$Cart.currentCart.forEach((product) =>
+        {
+          let cartProduct = this.$Product.getCartData(product.id)
+          cartProduct.quantity = this.$Cart.getProductCount(product.id)
 
-      if (this.$Cart.getCartCount > 0) {
-
-        await this.$Cart.currentCart.forEach((product) => {
-
-          let cartProduct = this.$Product.getCartData(product.id);
-          cartProduct.quantity = this.$Cart.getProductCount(product.id);
-
-          this.cart.products.push(cartProduct);
-          this.cart.subtotal += cartProduct.price;
-          this.cart.total += cartProduct.price*product.quantity;
+          this.cart.products.push(cartProduct)
+          this.cart.subtotal += cartProduct.price
+          this.cart.total += cartProduct.price*product.quantity
         })
       }
-      document.getElementById("CartModal").showModal();
+      document.getElementById('CartModal').showModal()
     },
-    openUserRegisterModal() {
-
-      document.getElementById("UserLoginModal").close();
-      document.getElementById("UserRegisterModal").showModal();
+    openUserRegisterModal()
+    {
+      document.getElementById('UserLoginModal').close()
+      document.getElementById('UserRegisterModal').showModal()
     },
-    openUserLoginModal() {
-
-      document.getElementById("UserRegisterModal").close();
-      document.getElementById("UserLoginModal").showModal();
+    openUserLoginModal()
+    {
+      document.getElementById('UserRegisterModal').close()
+      document.getElementById('UserLoginModal').showModal()
     },
-    openNavbarIconsUserModal() {
-      document.getElementById("UserModal").showModal();
+    openNavbarIconsUserModal()
+    {
+      document.getElementById('UserModal').showModal()
+    },
+    toggleFilters()
+    {
+      this.$parent.filters = !this.$parent.filters;
     }
   }
 }
@@ -57,10 +71,10 @@ export default {
 
   <div class="flex me-3">
 
-    <div class="flex items-center">
+    <button @click="toggleFilters" class="flex items-center">
 <!--      <input type="search" class="" placeholder="Chercher">-->
       <i-ph-magnifying-glass class="icon mx-2" />
-    </div>
+    </button>
 
     <div v-if="$User.token" class="flex items-center">
 <!--      <button role="button" class="dropdown">-->

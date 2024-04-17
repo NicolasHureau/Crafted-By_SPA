@@ -4,6 +4,8 @@ import api from '@/services/api.js';
 const useProductStore = defineStore('product', {
   state: () => ({
     allProducts: [],
+    filters: [],
+    filteredProducts: [],
     consultedProducts: []
   }),
   actions: {
@@ -17,6 +19,24 @@ const useProductStore = defineStore('product', {
       await api.get('products'
       ).then(response => {
         this.allProducts = response.data.data;
+      }).catch(error => {
+        console.log(error);
+      });
+    },
+    async fetchProductsFilter()
+    {
+      await api.get('filters'
+      ).then(response => {
+        this.filters = response.data;
+      }).catch(error => {
+        console.log(error);
+      });
+    },
+    async fetchFilteredProducts(values)
+    {
+      await api.get('products', {params: values}
+      ).then(response => {
+        this.filteredProducts = response.data.data;
       }).catch(error => {
         console.log(error);
       });
