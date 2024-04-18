@@ -14,7 +14,7 @@ export default {
   },
   async mounted() {
     await this.$Product.fetchProducts();
-  }
+  },
 }
 </script>
 

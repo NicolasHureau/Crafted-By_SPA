@@ -10,7 +10,10 @@ export default {
     return {
       filters: false
     }
-  }
+  },
+  // beforeMount() {
+  //   this.$User.getCookie('userToken')
+  // }
 }
 
 </script>

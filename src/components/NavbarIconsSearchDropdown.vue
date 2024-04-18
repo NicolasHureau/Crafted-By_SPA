@@ -12,7 +12,8 @@ export default {
     }
   },
   methods: {
-    applyFilters() {
+    applyFilters()
+    {
       const filters = {
         color:    this.colors,
         style:    this.styles,
@@ -23,14 +24,17 @@ export default {
         depth:    this.depths,
         search:   this.search
       };
-      if (this.$route.name === 'products' || this.$route.name === 'home') {
+      if (this.$route.name === 'products' || this.$route.name === 'home')
+      {
         this.$Product.fetchFilteredProducts(filters);
       }
-      if (this.$route.name === 'businesses' || this.$route.name === 'home') {
+      if (this.$route.name === 'businesses' || this.$route.name === 'home')
+      {
         this.$Business.fetchFilteredBusinesses(filters.search);
       }
     },
-    resetAll() {
+    resetAll()
+    {
       if (this.refs)
       {
         this.$refs.colorSelect.selectedIndex = 0;
@@ -42,14 +46,18 @@ export default {
       this.styles = '';
       this.materials = '';
       this.categories = '';
+
       this.search = '';
+
       this.$Product.message = '';
 
-      this.$router.go(0);
+      this.$Product.filteredProducts = [];
+      this.$Business.filteredBusinesses = [];
     }
   },
   async mounted() {
     await this.$Product.fetchProductsFilter();
+    this.$refs.searchInput.focus();
   }
 }
 
@@ -82,7 +90,7 @@ export default {
 
     <div class="flex w-full md:w-auto flex-grow flex-nowrap justify-end">
 
-      <input @change="applyFilters" v-model="search" placeholder="rechercher" class="input flex-grow border-none rounded-none bg-info min-h-7 h-7 max-w-80">
+      <input @change="applyFilters" v-model="search" ref="searchInput" placeholder="rechercher" class="input flex-grow border-none rounded-none bg-info min-h-7 h-7 max-w-80">
 
       <button type="button" @click="resetAll" class="bg-info ms-2 min-h-7 h-7 w-7">
         <i-ph-x class="inline" />

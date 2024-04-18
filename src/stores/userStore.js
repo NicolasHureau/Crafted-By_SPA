@@ -10,13 +10,6 @@ const useUserStore = defineStore('user', {
     allUser: [],
   }),
   getters: {
-    // user: state => {
-    //   if (!state.storedUser) {
-    //     return JSON.parse(state.storedUser);
-    //   }
-    //   return state.storedUser;
-    // },
-    // userIsAuth: state => !state.token,
     loggedUser: state => {
       if (state.storedUser) {
         return JSON.parse(localStorage.getItem('user'));
@@ -25,28 +18,26 @@ const useUserStore = defineStore('user', {
     }
   },
   actions: {
-    async register(formData) {
+    async register(formData)
+    {
       await api.post('users', {
         lastname: formData.lastname,
         firstname: formData.firstname,
         email: formData.email,
         password: formData.password,
         password_confirmation: formData.password_confirmation,
-        // address: formData.address,
-        // zip_code: formData.zip_code,
-        // city: formData.city,
       }).then(response => {
-        // this.token = response.data.accessToken;
-        // this.storedUser = response.data.user;
         localStorage.setItem('token', response.data.accessToken);
         localStorage.setItem('user', JSON.stringify(response.data.user));
-        alert(response.data.message);
+        console.log(response)
+        alert(response.statusText);
       }).catch(error => {
         console.log(error);
-        alert(error.message);
+        alert(error.response.data.message);
       })
     },
-    async login(formData) {
+    async login(formData)
+    {
       await api.post('login', {
         email: formData.email,
         password: formData.password,
@@ -54,13 +45,35 @@ const useUserStore = defineStore('user', {
         localStorage.setItem('token', response.data.accessToken);
         localStorage.setItem('user', JSON.stringify(response.data.user));
         this.$reset();
+        this.setCookie('userToken', this.token, 7);
         alert(response.statusText)
       }).catch(error => {
         console.log(error);
         alert(error.message);
       })
     },
-    async logout() {
+    setCookie(name, value, days)
+    {
+      const date = new Date();
+      date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+      const expires = "expires=" + date.toUTCString();
+      document.cookie = name + "=" + value + ";" + expires + ";path=/";
+    },
+    // getCookie(name)
+    // {
+    //   const decodedCookie = decodeURIComponent(document.cookie);
+    //   const cookies = decodedCookie.split(';');
+    //   for (let i = 0; i < cookies.length; i++) {
+    //     let cookie = cookies[i].trim();
+    //     if (cookie.startsWith(name + '=')) {
+    //       console.log(cookie)
+    //       return cookie.substring(name.length + 1);
+    //     }
+    //   }
+    //   return '';
+    // },
+    async logout()
+    {
       await api.post('logout'
       ).then(response => {
         alert(response.data.message);
@@ -73,7 +86,8 @@ const useUserStore = defineStore('user', {
         this.$reset();
       })
     },
-    async fetchUserProfile(userId) {
+    async fetchUserProfile(userId)
+    {
       await api.get(`users/${userId}`
       ).then(response => {
         this.userProfile = (response.data.user)
@@ -82,7 +96,8 @@ const useUserStore = defineStore('user', {
         alert(error);
       })
     },
-    async updateUserprofile(formData) {
+    async updateUserprofile(formData)
+    {
       await api.put(`users/${formData.id}`, {
           lastname: formData.lastname,
           firstname: formData.firstname,
@@ -94,7 +109,8 @@ const useUserStore = defineStore('user', {
         alert(error.message);
       })
     },
-    async updatePassword(formData) {
+    async updatePassword(formData)
+    {
       console.log(this.userProfile.email)
       await api.put('password', {
         email: this.userProfile.email,
@@ -109,13 +125,8 @@ const useUserStore = defineStore('user', {
         alert(error.response.data.message);
       })
     },
-    // async getUserProfile(userId) {
-    //   if (!this.userProfile) {
-    //     this.userProfile = await this.fetchUserProfile(userId);
-    //   }
-    //   return this.userProfile;
-    // },
-    async fetchAllUsers() {
+    async fetchAllUsers()
+    {
       await api.get('users'
       ).then(response => {
         console.log(response);
@@ -124,33 +135,6 @@ const useUserStore = defineStore('user', {
         alert(error.message)
       })
     },
-    // storeLoggedInUser(token, user) {
-    //   const _this = this;
-    //
-    //   // Save the token to localStorage
-    //   localStorage.setItem('token', token);
-    //
-    //   // Save the user to localStorage
-    //   const stringifiedUser = JSON.stringify (user);
-    //   localStorage.setItem('user', stringifiedUser);
-    //
-    //   // Save the token and user to the store state
-    //   _this.token = token;
-    //   _this.storedUser = stringifiedUser;
-    // },
-    // logoutUser() {
-    //   const _this = this;
-    //
-    //   // Delete the token from localStorage
-    //   localStorage.removeItem('token');
-    //
-    //   // Delete the user from localStorage
-    //   localStorage.removeItem('user');
-    //
-    //   // Delete the token and user from the state
-    //   _this.token = null;
-    //   _this.storedUser = null;
-    // }
   }
 });
 
