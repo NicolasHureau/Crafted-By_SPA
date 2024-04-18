@@ -53,6 +53,7 @@ const router = createRouter({
     },
     {
       path: '/business',
+      name: 'businesses',
       component: BusinessList
     },
     {

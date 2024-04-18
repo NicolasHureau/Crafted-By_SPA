@@ -2,7 +2,6 @@
 import Add from '@/components/Add.vue'
 import NavbarIcons from '@/components/NavbarIcons.vue';
 import NavbarMenu from '@/components/NavbarMenu.vue';
-import { defineComponent } from 'vue'
 import NavbarIconsSearchDropdown from '@/components/NavbarIconsSearchDropdown.vue'
 
 export default {
@@ -17,7 +16,8 @@ export default {
 </script>
 
 <template>
-  <header>
+
+  <header class="sticky top-0 bg-white z-50">
 
     <Add msg="Livraison gratuite à partir de 50€ !"/>
 

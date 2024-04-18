@@ -6,16 +6,20 @@ const useProductStore = defineStore('product', {
     allProducts: [],
     filters: [],
     filteredProducts: [],
-    consultedProducts: []
+    consultedProducts: [],
+    message: ''
   }),
   actions: {
-    async getProduct(productId) {
-        if (!this.consultedProducts.includes(productId)) {
+    async getProduct(productId)
+    {
+        if (!this.consultedProducts.includes(productId))
+        {
           await this.fetchProduct(productId);
         }
         return this.consultedProducts.find((product) => product.id === productId);
     },
-    async fetchProducts() {
+    async fetchProducts()
+    {
       await api.get('products'
       ).then(response => {
         this.allProducts = response.data.data;
@@ -37,11 +41,17 @@ const useProductStore = defineStore('product', {
       await api.get('products', {params: values}
       ).then(response => {
         this.filteredProducts = response.data.data;
+        if (this.filteredProducts.length === 0) {
+          this.message = 'Aucun resultat pour votre recherche.';
+        } else {
+          this.message = this.filteredProducts.length + ' produits trouvés.';
+        }
       }).catch(error => {
         console.log(error);
       });
     },
-    async fetchProduct(productId) {
+    async fetchProduct(productId)
+    {
       await api.get(`products/${productId}`
       ).then(response => {
         this.consultedProducts.push(response.data.product);
@@ -49,7 +59,8 @@ const useProductStore = defineStore('product', {
         console.log(error);
       })
     },
-    getCartData(productId) {
+    getCartData(productId)
+    {
       let cartProduct = this.consultedProducts.find((product) => product.id === productId);
       return {
         id: productId,
@@ -59,10 +70,6 @@ const useProductStore = defineStore('product', {
         price: parseFloat(cartProduct.price)
       }
     },
-    searchProduct(...params) {
-      // spread operator
-
-    }
   }
 });
 

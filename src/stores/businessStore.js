@@ -4,7 +4,9 @@ import api from '@/services/api.js'
 const useBusinessStore = defineStore('business', {
   state: () => ({
     allBusinesses: [],
-    consultedBusinesses: []
+    filteredBusinesses: [],
+    consultedBusinesses: [],
+    message: ''
   }),
   actions: {
     async getBusiness(businessId) {
@@ -21,7 +23,23 @@ const useBusinessStore = defineStore('business', {
         console.log(error);
       });
     },
-    async fetchBusiness(businessId) {
+    async fetchFilteredBusinesses(value)
+    {
+      console.log(value)
+      await api.get('business', {params: {'search': value}}
+      ).then(response => {
+        this.filteredBusinesses = response.data.data;
+        if (this.filteredBusinesses.length === 0) {
+          this.message = 'Aucun artisan ne correspond à votre recherche.';
+        } else {
+          this.message = this.filteredBusinesses.length + ' artisans trouvés.';
+        }
+      }).catch(error => {
+        console.log(error);
+      });
+    },
+    async fetchBusiness(businessId)
+    {
       await api.get(`business/${businessId}`
       ).then(response => {
         this.consultedBusinesses.push(response.data.business);
