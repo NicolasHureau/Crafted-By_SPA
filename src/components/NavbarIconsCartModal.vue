@@ -10,6 +10,19 @@ export default {
   props: {
     cart: Object,
   },
+  methods: {
+    close() {
+      document.getElementById('CartModal').close()
+    },
+    minusOne(productId) {
+      this.$Cart.subOneProduct(productId);
+      this.$parent.updateCart();
+    },
+    plusOne(productId) {
+      this.$Cart.addOneProduct(productId);
+      this.$parent.updateCart();
+    }
+  }
 }
 </script>
 
@@ -24,7 +37,7 @@ export default {
         <div class="flex justify-between mb-5 items-center">
           <h3 class="text-2xl text-left">Panier</h3>
           <form method="dialog" v-show=" width < 500 ">
-            <button>
+            <button alt="fermer la fenêtre" aria-label="fermer la fenêtre">
               <i-ph-x class="text-md" />
             </button>
           </form>
@@ -41,15 +54,15 @@ export default {
                 <span class="font-bold text-xl">{{ product.name }}</span>
                 <span class="text-primary text-xs">color: {{ product.color}}</span>
                 <div class="bg-info w-fit">
-                  <button type="button" @click="$Cart.subOneProduct(product.id) && this.$parent.updateCart" class="p-2">-</button>
+                  <button type="button" @click="minusOne(product.id)" class="p-2">-</button>
                   <span class="p-2">{{product.quantity}}</span>
-                  <button type="button" @click="$Cart.addOneProduct(product.id)" class="p-2">+</button>
+                  <button type="button" @click="plusOne(product.id)" class="p-2">+</button>
                 </div>
               </div>
 
               <div>
                 <div class="font-bold text-end">€{{ product.price }}</div>
-                <button type="button" @click="$Cart.delProductFromCart(product.id)" class="h-full">
+                <button type="button" @click="$Cart.delProductFromCart(product.id) && $parent.updateCart" class="h-full">
                   <i-ph-x class="text-md" />
                 </button>
               </div>
@@ -72,8 +85,8 @@ export default {
           </div>
 
           <div>
-            <RouterLink to="/Invoice" type="button" class="btn bg-black text-info w-full rounded-md hover:bg-primary my-5">Payer</RouterLink>
-            <RouterLink to="/Cart" class="link my-10">Voir le panier</RouterLink>
+            <RouterLink to="/Invoice" @click="close" type="button" class="btn bg-black text-info w-full rounded-md hover:bg-primary my-5">Payer</RouterLink>
+            <RouterLink to="/Cart" @click="close" class="link my-10">Voir le panier</RouterLink>
           </div>
         </div>
 

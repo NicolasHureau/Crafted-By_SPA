@@ -4,19 +4,23 @@ import { defineStore } from 'pinia'
 const useCartStore = defineStore('cart', {
   state: () => ({
     allCarts: [],
-    currentCart: [],
+    currentCart: JSON.parse(localStorage.getItem('cart')) || [],
     userInvoices: [],
   }),
   getters: {
-    getCartCount(state) {
+    getCartCount(state)
+    {
       let cartCount = 0;
-      if(state.currentCart.length > 0) {
-        state.currentCart.forEach((product) => {
+
+      if(this.currentCart !== null && state.currentCart.length > 0)
+      {
+        state.currentCart.forEach((product) =>
+        {
           cartCount +=  product.quantity;
         });
       }
       return cartCount;
-    }
+    },
   },
   actions: {
     async fetchAllInvoices() {
@@ -61,7 +65,13 @@ const useCartStore = defineStore('cart', {
     //     this.currentCart = lastCart;
     //   }
     // },
+    saveToLocalCart(cart) {
+      localStorage.setItem('cart', JSON.stringify(cart));
+    },
     addToCart(productId, quantity = 1) {
+      if (!this.currentCart) {
+        localStorage.setItem('cart', 'empty')
+      }
       let alreadyAdd = false;
       this.currentCart.forEach((product) => {
         if(product.id === productId) {
@@ -79,20 +89,24 @@ const useCartStore = defineStore('cart', {
           quantity: quantity
         })
       }
+      this.saveToLocalCart(this.currentCart);
     },
     getProductCount(productId) {
       return this.currentCart.find((product) => product.id === productId).quantity
     },
     addOneProduct(productId) {
       this.currentCart.find((product) => product.id === productId).quantity ++
+      this.saveToLocalCart(this.currentCart)
     },
     subOneProduct(productId) {
       this.currentCart.find((product) => product.id === productId).quantity --
+      this.saveToLocalCart(this.currentCart)
     },
     delProductFromCart(productId) {
       this.currentCart.splice(
         this.currentCart.findIndex((product) => product.id === productId),
         1)
+      this.saveToLocalCart(this.currentCart)
     }
   },
 });

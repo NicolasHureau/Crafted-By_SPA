@@ -59,9 +59,10 @@ const useProductStore = defineStore('product', {
         console.log(error);
       })
     },
-    getCartData(productId)
+    async getCartData(productId)
     {
-      let cartProduct = this.consultedProducts.find((product) => product.id === productId);
+      let cartProduct = await this.getProduct(productId)
+
       return {
         id: productId,
         name: cartProduct.name,

@@ -3,6 +3,7 @@ import UserRegisterModal from '@/components/UserRegisterModal.vue'
 import UserLoginModal from '@/components/UserLoginModal.vue'
 import NavbarIconsCartModal from '@/components/NavbarIconsCartModal.vue'
 import NavbarIconsUserModal from '@/components/NavbarIconsUserModal.vue'
+import { toRaw } from 'vue'
 
 export default
 {
@@ -33,15 +34,17 @@ export default
 
       if (this.$Cart.getCartCount > 0)
       {
-        await this.$Cart.currentCart.forEach((product) =>
+        const localCart = toRaw(this.$Cart.currentCart)
+
+        for (const product of localCart)
         {
-          let cartProduct = this.$Product.getCartData(product.id)
+          let cartProduct = await this.$Product.getCartData(product.id)
           cartProduct.quantity = this.$Cart.getProductCount(product.id)
 
           this.cart.products.push(cartProduct)
           this.cart.subtotal += cartProduct.price
           this.cart.total += cartProduct.price*product.quantity
-        })
+        }
       }
       document.getElementById('CartModal').showModal()
     },
@@ -71,9 +74,9 @@ export default
 
   <div class="flex me-3">
 
-    <button @click="toggleFilters" class="flex items-center">
+    <button @click="toggleFilters" class="flex items-center" alt="boutton de menu de recherche" aria-label="boutton de menu de recherche">
 <!--      <input type="search" class="" placeholder="Chercher">-->
-      <i-ph-magnifying-glass class="icon mx-2" />
+      <i-ph-magnifying-glass ref="searchIcon" class="icon mx-2" />
     </button>
 
     <div v-if="$User.token" class="flex items-center">
@@ -97,21 +100,21 @@ export default
 <!--        </div>-->
 
 <!--      </button>-->
-      <button @click="openNavbarIconsUserModal">
+      <button @click="openNavbarIconsUserModal" alt="boutton de menu de profile personnel" aria-label="boutton de menu de profile personnel">
         <i-ph-user-circle class="icon mx-2" />
       </button>
       <NavbarIconsUserModal />
     </div>
 
     <div v-else class="flex items-center">
-      <button @click="openUserRegisterModal">
+      <button @click="openUserRegisterModal" alt="boutton pour s'enregistrer" aria-label="boutton pour s'enregistrer">
         <i-ph-user-circle class="icon mx-2" />
       </button>
       <UserRegisterModal />
       <UserLoginModal />
     </div>
 
-    <button tabindex="0" role="button" @click="updateCart" class="btn btn-ghost btn-circle">
+    <button tabindex="0" role="button" @click="updateCart" class="btn btn-ghost btn-circle" alt="boutton de panier">
       <div class="indicator">
         <i-ph-shopping-bag class="icon mx-2" />
         <span class="badge badge-sm indicator-item bg-success text-info right-2 top-1">{{ $Cart.getCartCount }}</span>

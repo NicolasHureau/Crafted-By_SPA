@@ -39,9 +39,11 @@ export default {
   async created() {
     this.product = await this.$Product.getProduct(this.$route.params.id);
     this.addMultiplicator();
-    let cartProduct = this.$Cart.currentCart.find((product) => product.id === this.product.id);
-    if (cartProduct) {
-      this.quantity = cartProduct.quantity
+    if (this.$Cart.currentCart) {
+      let cartProduct = this.$Cart.currentCart.find((product) => product.id === this.product.id);
+      if (cartProduct) {
+        this.quantity = cartProduct.quantity
+      }
     }
   }
 }

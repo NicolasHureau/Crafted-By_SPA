@@ -26,7 +26,7 @@ const useBusinessStore = defineStore('business', {
     async fetchFilteredBusinesses(value)
     {
       console.log(value)
-      await api.get('business', {params: {'search': value}}
+      await api.get('business', {params: value}
       ).then(response => {
         this.filteredBusinesses = response.data.data;
         if (this.filteredBusinesses.length === 0) {

@@ -14,7 +14,7 @@ export default {
 
   <nav class="flex justify-center items-center grow">
 
-    <button role="button" @click="openMenuModal" class="">
+    <button role="button" @click="openMenuModal" alt="boutton de menu">
       <i-ph-list :style="{ fontSize:'30px' }"/>
       <NavbarMenuModal />
     </button>

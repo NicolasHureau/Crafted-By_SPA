@@ -26,9 +26,9 @@ export default {
     <div class="modal-box rounded flex flex-col sm:flex-row w-full p-0">
 
       <figure class="flex justify-center basis-1/2">
-        <img class="object-cover" src="../assets/img.png">
+        <img class="object-cover" src="../assets/img.png" alt="image d'une table et d'une chaise" aria-label="image d'une table et d'une chaise">
         <form method="dialog" class="absolute top-3 right-3">
-          <button>
+          <button alt="boutton pour fermer la modal de login" aria-label="boutton pour fermer la modal de login">
             <i-ph-x class="text-md" />
           </button>
         </form>
@@ -43,11 +43,11 @@ export default {
           </p>
           <div>
             <!--          <label for="email" class="control-label sr-only">Email</label>-->
-            <input v-model="email" type="email" class="form-control border-b p-3 w-full" id="email" placeholder="Votre email" />
+            <input v-model="email" type="email" class="form-control border-b p-3 w-full" id="email" placeholder="Votre email" alt="champ d'email" />
           </div>
           <div>
             <!--          <label for="password" class="control-label sr-only">Mot de passe</label>-->
-            <input v-model="password" type="password" class="form-control border-b p-3 w-full" id="password" placeholder="Mot de passe" />
+            <input v-model="password" type="password" class="form-control border-b p-3 w-full" id="password" placeholder="Mot de passe" alt="champ de mot de passe" />
           </div>
           <div class="form-control">
             <label class="label cursor-pointer w-full mt-5">
@@ -62,7 +62,7 @@ export default {
       </div>
     </div>
     <form method="dialog" class="modal-backdrop">
-      <button>close</button>
+      <button alt="cliquez hors de la fenêtre pour fermer" aria-label="cliquez hors de la fenêtre pour fermer">close</button>
     </form>
   </dialog>
 
