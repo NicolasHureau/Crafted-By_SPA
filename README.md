@@ -77,3 +77,21 @@ et de la librairie Phosphor (https://phosphoricons.com/).
     npm i -D @iconify-json/ph
 
 ### 7 - Pinia
+
+    COLADA!!! :P
+
+### 8 - Docker
+
+#### Dockerfile
+
+"FROM" pour indiquer l'image docker utiliser pour le build (choisi parmi celles sur dockerhub)
+
+"WORKDIR" permet de déterminer un dossier de travail pour les commandes suivantes
+
+"RUN npm run build" vas minifier le projet pour la prod dans le dossier "/dist"
+
+Une fois le multi-stage opéré on copie donc le projet minifier dans le dossier utilisé par nginx pour l'accé au projet : 
+"COPY --from=builder /app/dist /usr/share/nginx/html"
+
+### docker-compose
+
