@@ -13,7 +13,7 @@ export default {
 <template>
 
   <div>
-    <h3 class="text-3xl font-bold">NOUVEAUTES</h3>
+    <h3 class="text-3xl font-bold">NOUVEAUTES YOUPIIIII</h3>
 <!--    <div>-->
 <!--      <ProductListItem />-->
 <!--    </div>-->
