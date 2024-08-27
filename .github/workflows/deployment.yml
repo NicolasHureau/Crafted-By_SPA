@@ -39,7 +39,7 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_SSH_KEY }}
           script: |
-            cd dockerfiles/spa/
-            sed -i "s|nicolashureau/crafted_by_spa:.*|nicolashureau/crafted_by_spa:${{ env.VERSION }}|g" docker-compose.yml
+#            cd dockerfiles/spa/
+            sed -i "s|nicolashureau/crafted_by_spa:.*|nicolashureau/crafted_by_spa:${{ env.VERSION }}|g" frontend.yml
             sudo docker pull nicolashureau/crafted_by_spa:${{ env.VERSION }}
             sudo docker compose up -d
